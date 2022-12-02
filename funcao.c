@@ -19,39 +19,40 @@ void Deposito (ContaB *conta, float valor) {
 }
 
 void Saque (ContaB *conta, float valor) {
-    conta->saldo -= valor;
+    if(conta->saldo >= valor && valor > 0){
+        conta->saldo = conta->saldo - valor;
+    }
+    
+    else{
+        printf("Saque nao realizado!\n");
+    }
 }
 
 void Imprime (ContaB *conta) {
     printf("Numero: %d\n", conta->num);
-    printf("Saldo: %f\n", conta->saldo);
+    printf("Saldo: %.2f\n", conta->saldo);
 }
 
 
 
 int main (void){
     ContaB *conta1;
+    int alea = rand();
 
-    int alt = rand() % 100;
-    conta1 = Cria(alt, 0.00);
+    conta1 = Cria(alea, 0.0);
     
-    printf("Bem vindo, sua conta foi criada!!\n");
-    
+    printf("Bem vindo, sua conta foi criada!!\nConfira abaixo os seus dados.\n");
     printf("\nNumero da conta: %d\n", conta1->num);
-    
-    printf("Seu saldo incial: %f\n", conta1->saldo);
+    printf("Seu saldo incial: %.2f\n", conta1->saldo);
 
-    printf("\nAntes da movimentacao:\n ");
-    Imprime(conta1);
     
-    Deposito(conta1, 500);
-    printf("\nApos o deposito:\n ");
+    printf("\nApos o deposito\n");
+    Deposito(conta1, 0);
     Imprime(conta1);
 
-    Saque(conta1, 70);
-    printf("\nApos o saque: \n");
+    printf("\nApos o saque\n");
     Imprime (conta1);
+    Saque(conta1, 200);
     
     return 0;
 }
-
